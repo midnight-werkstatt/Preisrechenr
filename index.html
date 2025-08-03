@@ -211,50 +211,86 @@
 
   <div class="total">Gesamtpreis: <span id="total">0.00</span> €</div>
   <button class="reset" onclick="resetForm()">Zurücksetzen</button>
+  <button onclick="sendeBericht()">An Discord senden</button>
 
-  <script>
-    let optikPreis = 0;
+ <script>
+   let optikPreis = 0;
 
-    function updateTotal() {
-      const ids = ["motor", "bremse", "getriebe", "federung", "panzerung", "turbo", "felgen"];
-      let summe = optikPreis;
+   function updateTotal() {
+     const ids = ["motor", "bremse", "getriebe", "federung", "panzerung", "turbo", "felgen"];
+     let summe = optikPreis;
 
-      ids.forEach(id => {
-        const val = parseFloat(document.getElementById(id).value) || 0;
-        summe += val;
-      });
+     ids.forEach(id => {
+       const val = parseFloat(document.getElementById(id).value) || 0;
+       summe += val;
+     });
+ 
+     document.getElementById("total").textContent = summe.toFixed(2);
+   }
 
-      document.getElementById("total").textContent = summe.toFixed(2);
-    }
+   function toggleOption(button, preis) {
+     if (button.classList.contains("active")) {
+       button.classList.remove("active");
+       optikPreis -= preis;
+     } else {
+       button.classList.add("active");
+       optikPreis += preis;
+     }
+     updateTotal();
+   }
 
-    function toggleOption(button, preis) {
-      if (button.classList.contains("active")) {
-        button.classList.remove("active");
-        optikPreis -= preis;
-      } else {
-        button.classList.add("active");
-        optikPreis += preis;
-      }
-      updateTotal();
-    }
+   function resetForm() {
+     document.getElementById("name").value = "";
+     document.getElementById("fraktion").value = "";
+     document.getElementById("tuner").value = "";
+     ["motor", "bremse", "getriebe", "federung", "panzerung", "turbo", "felgen"].forEach(id => {
+       document.getElementById(id).selectedIndex = 0;
+     });
 
-    function resetForm() {
-      document.getElementById("name").value = "";
-      document.getElementById("fraktion").value = "";
-      document.getElementById("tuner").value = "";
-      ["motor", "bremse", "getriebe", "federung", "panzerung", "turbo", "felgen"].forEach(id => {
-        document.getElementById(id).selectedIndex = 0;
-      });
+     document.querySelectorAll(".button-group button").forEach(btn => {
+       btn.classList.remove("active");
+     });
 
-      document.querySelectorAll(".button-group button").forEach(btn => {
-        btn.classList.remove("active");
-      });
+     optikPreis = 0;
+     updateTotal();
+   }
 
-      optikPreis = 0;
-      updateTotal();
-    }
-  </script>
+   function sendeBericht() {
+     const webhookURL = 'https://discord.com/api/webhooks/1401495775384698930/a6GKCzi_g4PO02B6KQ0F8uPMEHmIIKr-JX22l2XPFkMaPX7_juVT9o8nmBajD2Qs_-K_'; // ⬅️ DEIN DISCORD WEBHOOK HIER EINSETZEN
+
+     const tuner = document.getElementById("tuner").value || "Unbekannt";
+     const name = document.getElementById("name").value || "Unbekannt";
+     const fahrzeug = document.getElementById("fraktion").value || "Unbekannt";
+     const preis = document.getElementById("total").textContent;
+
+     const optikAuswahl = [];
+     document.querySelectorAll(".button-group button.active").forEach(btn => {
+       optikAuswahl.push(btn.textContent);
+     });
+
+     const message = {
+       content: `🔧 **Werkstatt-Bericht**\n\n👨‍🔧 **Tuner:** ${tuner}\n🧑‍💼 **Kunde:** ${name}\n🚗 **Fahrzeug:** ${fahrzeug}\n💶 **Gesamtpreis:** ${preis} €\n🎨 **Optik:** ${optikAuswahl.join(', ') || "Keine"}`
+     };
+
+     fetch(webhookURL, {
+       method: "POST",
+       headers: {
+         "Content-Type": "application/json"
+       },
+       body: JSON.stringify(message)
+     }).then(res => {
+       if (res.ok) {
+         alert("✅ Bericht wurde an Discord gesendet!");
+       } else {
+         alert("❌ Fehler beim Senden des Berichts.");
+       }
+     }).catch(() => {
+       alert("❌ Verbindung zum Discord-Webhook fehlgeschlagen.");
+     });
+   }
+ </script>
 </body>
 </html>
+
 
 
