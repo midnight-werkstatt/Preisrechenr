@@ -206,57 +206,59 @@
     <label for="motor">Motor:</label>
     <select id="motor">
       <option value="0">-- Bitte wählen --</option>
-       <option value="18000">LVL 0 (18.000 €)</option>
-       <option value="28800">LVL 1 (28.800 €)</option>
-       <option value="72000">LVL 2 (72.000 €)</option>
-       <option value="90000">LVL 3 (90.000 €)</option>
-       <option value="120000">LVL 4 (120.000 €)</option>
+       <option value="18000">LVL 0 (18.000 €)</option>           
+       <option value="24000">LVL 1 (24.000 €)</option>          
+       <option value="72000">LVL 2 (72.000 €)</option>          
+       <option value="90000">LVL 3 (90.000 €)</option>           
+       <option value="144000">LVL 4 (144.000 €)</option>           
     </select>
 
     <label for="bremse">Bremse:</label>
     <select id="bremse">
       <option value="0">-- Bitte wählen --</option>
-        <option value="7200">LVL 0 (7.200 €)</option>
-        <option value="18000">LVL 1 (18.000 €)</option>
-        <option value="32400">LVL 2 (32.400 €)</option>
-        <option value="42000">LVL 3 (42.000 €)</option>
+        <option value="7200">LVL 0 (7.200 €)</option>           
+        <option value="18000">LVL 1 (18.000 €)</option>          
+        <option value="32400">LVL 2 (32.400 €)</option>          
+        <option value="64800">LVL 3 (64.800 €)</option>         
     </select>
 
     <label for="getriebe">Getriebe:</label>
     <select id="getriebe">
       <option value="0">-- Bitte wählen --</option>
-        <option value="18000">LVL 0 (18.000 €)</option>
-        <option value="39600">LVL 1 (39.600 €)</option>
-        <option value="55200">LVL 2 (55.200 €)</option>
-        <option value="82800">LVL 3 (82.800 €)</option>
+        <option value="18000">LVL 0 (18.000 €)</option>           <!-- 15000 -->
+        <option value="39600">LVL 1 (39.600 €)</option>           <!-- 33000 -->
+        <option value="55200">LVL 2 (55.200 €)</option>           <!-- 48000 -->
+        <option value="82800">LVL 3 (82.800 €)</option>           <!-- 69000 -->
     </select>
 
     <label for="federung">Federung:</label>
     <select id="federung">
-      <option value="0">-- Bitte wählen --</option>
-        <option value="5400">LVL 0 (5.400 €)</option>
-        <option value="21600">LVL 1 (21.600 €)</option>
-        <option value="3900">LVL 2 (39.000 €)</option>
-        <option value="45000">LVL 3 (45.000 €)</option>
-        <option value="79200">LVL 4 (79.200 €)</option>
+      <option value="0">-- Bitte wählen --</option>          
+        <option value="5400">LVL 0 (5.400 €)</option>           <!-- 4500 -->
+        <option value="21600">LVL 1 (21.600 €)</option>           <!-- 18000 -->
+        <option value="3900">LVL 2 (39.000 €)</option>           <!-- 28500 -->
+        <option value="45000">LVL 3 (45.000 €)</option>           <!-- 45000 -->
+        <option value="79200">LVL 4 (79.200 €)</option>           <!-- 66000 -->
+		<option value="79200">LVL 5 (79.200 €)</option>           <!-- 66000 -->
+
     </select>
 
     <label for="panzerung">Panzerung:</label>
     <select id="panzerung">
       <option value="0">-- Bitte wählen --</option>
-        <option value="100000">LVL 0 (100.000 €)</option>
-        <option value="180000">LVL 1 (180.000 €)</option>
-        <option value="216000">LVL 2 (216.000 €)</option>
-        <option value="234000">LVL 3 (234.000 €)</option>
-        <option value="270000">LVL 4 (270.000 €)</option>
-        <option value="324000">LVL 5 (324.000 €)</option>
+        <option value="100000">LVL 0 (100.000 €)</option>           <!-- 60000 -->
+        <option value="180000">LVL 1 (180.000 €)</option>           <!-- 150000 -->
+        <option value="216000">LVL 2 (216.000 €)</option>           <!-- 180000 -->
+        <option value="234000">LVL 3 (234.000 €)</option>           <!-- 195000 -->
+        <option value="270000">LVL 4 (270.000 €)</option>           <!-- 225000 -->
+        <option value="324000">LVL 5 (324.000 €)</option>           <!-- 270000 -->
     </select>
 
     <label for="turbo">Turbo:</label>
     <select id="turbo">
       <option value="0">-- Bitte wählen --</option>
-        <option value="18000">Raus (18.000 €)</option>
-		<option value="108000">Rein (108.000 €)</option>
+        <option value="18000">Raus (18.000 €)</option>           <!-- 15000 -->
+		<option value="108000">Rein (108.000 €)</option>           <!-- 90000 -->
     </select>
 
   </div>
@@ -294,7 +296,7 @@
         <button onclick="toggleOption(this, 14400)">Bogenabdeckung</button>
         <button onclick="toggleOption(this, 3960)">Antenne</button>
         <button onclick="toggleOption(this, 21600)">Flügel</button>
-        <button onclick="toggleOption(this, 3000)">Fenster</button>
+        <button onclick="toggleOption(this, 5400)">Fenster</button>
         <button onclick="toggleOption(this, 7200)">Extra1</button>
         <button onclick="toggleOption(this, 7200)">Extra2</button>
         <button onclick="toggleOption(this, 7200)">Extra3</button>
@@ -302,9 +304,10 @@
         <button onclick="toggleOption(this, 18000)">Hydraulik</button>
         <button onclick="toggleOption(this, 18720)">Motorblock</button>
         <button onclick="toggleOption(this, 13320)">Luftfilter</button>
-        <button onclick="toggleOption(this, 19890)">Streben</button>
+        <button onclick="toggleOption(this, 23400)">Streben</button>
         <button onclick="toggleOption(this, 14760)">Tank</button>
         <button onclick="toggleOption(this, 25200)">Sprecher</button>
+        <button onclick="toggleOption(this, 5760)">Hupe</button>
       </div>
 	
 	
@@ -331,7 +334,7 @@
       <h3>Lichter</h3>
       <div class="button-group">
         <button onclick="toggleOption(this, 1800)">XENON</button>
-        <button onclick="toggleOption(this, 7000)">UBB</button>
+        <button onclick="toggleOption(this, 7200)">UBB</button>
       </div>
 	  
       <h3>Felgenart</h3>
@@ -347,7 +350,7 @@
         <option value="18000">Benny’s Original</option>
         <option value="18000">Benny’s Bespoke</option>
         <option value="18000">F1</option>
-        <option value="15000">Straße</option>
+        <option value="18000">Straße</option>
         <option value="18000">Bike</option>
       </select>
 
@@ -429,6 +432,7 @@
 
 </body>
 </html>
+
 
 
 
