@@ -44,6 +44,7 @@ function resetForm() {
             }
         })
     });
+
     // Variablen aufräumen, Gesammtpreis usw auf 0 setzen
     total = 0;
     motor = 0;
@@ -54,6 +55,12 @@ function resetForm() {
     turbo = 0;
     felgenart = 0;
     calculate(0);
+
+    // Tuner, Kunde, Auto, Frak leeren
+    document.getElementById('tuner').value = "";
+    document.getElementById('name').value = "";
+    document.getElementById('fahrzeug').value = "";
+    document.getElementById('fraktion').value = "";
 }
 
 // Dropdown
@@ -140,9 +147,9 @@ document.querySelector('.send').addEventListener('click', () => {
 **Kunde:** ${name}
 **Fahrzeug:** ${fahrzeug}
 **Fraktion:** ${fraktion}
-**Kosten:** ${cost}
-**Gewinn:** ${earning}
-**Gesamtpreis:** ${total}`;
+**Kosten:** ${"$" + cost.split('$')[1]}
+**Gewinn:** ${"$" + earning.split('$')[1]}
+**Gesamtpreis:** ${"$" + total.split('$')[1]}`;
 
     fetch(DISCORD_WEBHOOK_URL, {
         method: 'POST',
