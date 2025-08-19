@@ -122,22 +122,26 @@ document.querySelector('.send').addEventListener('click', () => {
     const name = document.getElementById('name').value;
     const fahrzeug = document.getElementById('fahrzeug').value;
     const fraktion = document.getElementById('fraktion').value;
+    const cost = document.getElementById('cost').innerText;
+    const earning = document.getElementById('earning').innerText;
     const total = document.getElementById('total').innerText;
 
-    let aktiveButtons = Array.from(document.querySelectorAll('button.active')).map(btn => btn.innerText).join(', ');
-    let felgenDropdown = document.getElementById('felgenart');
-    let felgenart = felgenDropdown.options[felgenDropdown.selectedIndex].text;
-
-    // Falls Felgen gewählt wurden, zur Liste hinzufügen
-    if (felgenDropdown.value !== "") {
-        aktiveButtons += `, Felgenart: ${felgenart}`;
-    }
+    // let aktiveButtons = Array.from(document.querySelectorAll('button.active')).map(btn => btn.innerText).join(', ');
+    // let felgenDropdown = document.getElementById('felgenart');
+    // let felgenart = felgenDropdown.options[felgenDropdown.selectedIndex].text;
+    //
+    // // Falls Felgen gewählt wurden, zur Liste hinzufügen
+    // if (felgenDropdown.value !== "") {
+    //     aktiveButtons += `, Felgenart: ${felgenart}`;
+    // }
 
     const content = `🔧 **Tuning Nachweis** 🔧\n
 **Tuner:** ${tuner}
 **Kunde:** ${name}
 **Fahrzeug:** ${fahrzeug}
 **Fraktion:** ${fraktion}
+**Kosten:** ${cost}
+**Gewinn:** ${earning}
 **Gesamtpreis:** ${total}`;
 
     fetch(DISCORD_WEBHOOK_URL, {
