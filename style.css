@@ -42,9 +42,6 @@ summary {
 }
 
 .optik-container {
-    display: flex;
-    gap: 40px;
-    flex-wrap: wrap;
     background-color: #1f1b2e;
     padding: 20px;
     border-radius: 10px;
@@ -52,6 +49,13 @@ summary {
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
 }
 
+.rabatt-container {
+    background-color: #1f1b2e;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 40px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
 .perfomance-section {
     display: flex;
     flex-wrap: wrap;
@@ -66,7 +70,6 @@ summary {
 }
 
 .optik-section {
-    flex: 1;
     min-width: 300px;
     padding: 0 15px 0 15px;
 }
@@ -77,6 +80,11 @@ summary {
     border-bottom: 1px solid #666;
     padding-bottom: 5px;
     font-size: 1.1em;
+}
+
+.rabatt-section {
+    min-width: 300px;
+    padding: 0 15px 0 15px;
 }
 
 .button-group {

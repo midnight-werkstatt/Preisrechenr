@@ -1,124 +1,80 @@
-// Globale Variablen zum Rechnen
+// --- Globale Variablen ---
 let total = 0;
-let motor = 0;
-let bremse = 0;
-let getriebe = 0;
-let federung = 0;
-let panzerung = 0;
-let turbo = 0;
-let felgenart = 0;
+const values = {};
+let earning_base_mult = 0.2;
+let total_base_mult = 1.2;
+let discount = 0; // Rabatt in Dezimalform
 
-// Funktionen
-function toggleOption(button, price) {
-    if(button.classList.toggle('active')) {
-        calculate(price);
-    } else {
-        calculate(-price);
-    }
-}
+// --- Hilfsfunktionen ---
+const $ = id => document.getElementById(id);
 
-function calculate(price) {
-    total += price;
-
-    document.getElementById('cost').innerText = `Kosten: ${formatToUSD(total)}`;
-    document.getElementById('earning').innerText = `Gewinn: ${formatToUSD(total * 0.2)}`;
-    document.getElementById('total').innerText = `Gesamtpreis: ${formatToUSD(total * 1.2)}`;
-}
-
-function formatToUSD(number) {
+function formatToUSD(num) {
     return new Intl.NumberFormat('en-US', {
         style: 'currency',
         currency: 'USD',
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
-    }).format(number);
+        minimumFractionDigits: 2
+    }).format(num);
 }
+
+function updateDisplay() {
+    const total_mult = total_base_mult - discount;
+    const earning_mult = earning_base_mult - discount;
+    $('cost').innerText = `Kosten: ${formatToUSD(total)}`;
+    $('earning').innerText = `Gewinn: ${formatToUSD(total * earning_mult)}`;
+    $('total').innerText = `Gesamtpreis: ${formatToUSD(total * total_mult)}`;
+}
+
+// --- Preisberechnung ---
+function calculate(price) {
+    total += price;
+    updateDisplay();
+}
+
+function toggleOption(button, price) {
+    button.classList.toggle('active');
+    calculate(button.classList.contains('active') ? price : -price);
+}
+
+// --- Reset-Funktion ---
 function resetForm() {
-    // Setzt Buttons zurück
-    document.querySelectorAll('.button-group button.active').forEach(button => {button.classList.toggle('active');});
-    // Setzt Dropdowns zurück
-    document.querySelectorAll('select').forEach(selection => {
-        [...selection.options].forEach(opt => {
-            if(opt.dataset.code === "0") {
-                opt.selected = true;
-            }
-        })
-    });
+    document.querySelectorAll('.button-group button.active')
+        .forEach(b => b.classList.remove('active'));
 
-    // Variablen aufräumen, Gesammtpreis usw auf 0 setzen
+    document.querySelectorAll('select').forEach(sel => sel.value = sel.querySelector('[data-code="0"]').value);
+
+    document.querySelectorAll('input[type="text"]').forEach(i => i.value = "");
+
+    Object.keys(values).forEach(k => values[k] = 0);
     total = 0;
-    motor = 0;
-    bremse = 0;
-    getriebe = 0;
-    federung = 0;
-    panzerung = 0;
-    turbo = 0;
-    felgenart = 0;
-    calculate(0);
-
-    // Tuner, Kunde, Auto, Frak leeren
-    document.getElementById('tuner').value = "";
-    document.getElementById('name').value = "";
-    document.getElementById('fahrzeug').value = "";
-    document.getElementById('fraktion').value = "";
+    discount = 0;
+    updateDisplay();
 }
 
-// Dropdown
-document.getElementById('motor').addEventListener('change', function(){
-    const selectedOption = this.options[this.selectedIndex];
-    if(motor !== Number(selectedOption.dataset.code)) {
-        calculate(-motor)
-        motor = Number(selectedOption.dataset.code);
-        calculate(motor);
-    }
+// --- Dropdown-Handling ---
+const dropdowns = ['motor', 'bremse', 'getriebe', 'federung', 'panzerung', 'turbo', 'felgenart'];
+
+dropdowns.forEach(id => {
+    values[id] = 0;
+    $(id).addEventListener('change', e => {
+        const code = Number(e.target.selectedOptions[0].dataset.code);
+        calculate(-values[id]);
+        values[id] = code;
+        calculate(code);
+    });
 });
-document.getElementById('bremse').addEventListener('change', function(){
-    const selectedOption = this.options[this.selectedIndex];
-    if(bremse !== Number(selectedOption.dataset.code)) {
-        calculate(-bremse)
-        bremse = Number(selectedOption.dataset.code);
-        calculate(bremse);
-    }
-});
-document.getElementById('getriebe').addEventListener('change', function(){
-    const selectedOption = this.options[this.selectedIndex];
-    if(getriebe !== Number(selectedOption.dataset.code)) {
-        calculate(-getriebe)
-        getriebe = Number(selectedOption.dataset.code);
-        calculate(getriebe);
-    }
-});
-document.getElementById('federung').addEventListener('change', function(){
-    const selectedOption = this.options[this.selectedIndex];
-    if(federung !== Number(selectedOption.dataset.code)) {
-        calculate(-federung)
-        federung = Number(selectedOption.dataset.code);
-        calculate(federung);
-    }
-});
-document.getElementById('panzerung').addEventListener('change', function(){
-    const selectedOption = this.options[this.selectedIndex];
-    if(panzerung !== Number(selectedOption.dataset.code)) {
-        calculate(-panzerung)
-        panzerung = Number(selectedOption.dataset.code);
-        calculate(panzerung);
-    }
-});
-document.getElementById('turbo').addEventListener('change', function(){
-    const selectedOption = this.options[this.selectedIndex];
-    if(turbo !== Number(selectedOption.dataset.code)) {
-        calculate(-turbo)
-        turbo = Number(selectedOption.dataset.code);
-        calculate(turbo);
-    }
-});
-document.getElementById('felgenart').addEventListener('change', function(){
-    const selectedOption = this.options[this.selectedIndex];
-    if(felgenart !== Number(selectedOption.dataset.code)) {
-        calculate(-felgenart)
-        felgenart = Number(selectedOption.dataset.code);
-        calculate(felgenart);
-    }
+
+// --- Rabatt-Buttons ---
+document.querySelectorAll('.rabatt-section button').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const percent = parseInt(btn.id.replace('p', '')) || 0;
+        discount = percent / 100;
+        updateDisplay();
+
+        // Visuelles Feedback
+        document.querySelectorAll('.rabatt-section button')
+            .forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+    });
 });
 
 // Discord
@@ -132,15 +88,6 @@ document.querySelector('.send').addEventListener('click', () => {
     const cost = document.getElementById('cost').innerText;
     const earning = document.getElementById('earning').innerText;
     const total = document.getElementById('total').innerText;
-
-    // let aktiveButtons = Array.from(document.querySelectorAll('button.active')).map(btn => btn.innerText).join(', ');
-    // let felgenDropdown = document.getElementById('felgenart');
-    // let felgenart = felgenDropdown.options[felgenDropdown.selectedIndex].text;
-    //
-    // // Falls Felgen gewählt wurden, zur Liste hinzufügen
-    // if (felgenDropdown.value !== "") {
-    //     aktiveButtons += `, Felgenart: ${felgenart}`;
-    // }
 
     const content = `🔧 **Tuning Nachweis** 🔧\n
 **Tuner:** ${tuner}
