@@ -1,8 +1,8 @@
 // --- Globale Variablen ---
 let total = 0;
 const values = {};
-let earning_base_mult = 0.2;
-let total_base_mult = 1.2;
+let earning_base_mult = 0.25;
+let total_base_mult = 1.25;
 let discount = 0; // Rabatt in Dezimalform
 
 // --- Hilfsfunktionen ---
