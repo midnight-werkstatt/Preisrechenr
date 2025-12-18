@@ -193,17 +193,22 @@
         
         <!-- Rabatt BEREICH -->
         <details class="rabatt-container">
-            <summary>Rabatte</summary>
-            <div class="rabatt-section">
+            <summary>Rabatt / Aufschlag</summary>
+            <div class="rabatt-aufschlag-section">
                 <h3>Rabattstufen</h3>                    
                 <div class="button-group">
-                    <button id="0p">0%</button>
-                    <button id="5p">5%</button>
-                    <button id="10p">10%</button>
-                    <button id="15p">15%</button>
-                    <button id="20p">20%</button>
-                    <button id="25p">25%</button>
-                </div>  
+                    <button data-type="discount" data-value="0">0%</button>
+                    <button data-type="discount" data-value="5">5%</button>
+                    <button data-type="discount" data-value="10">10%</button>
+                    <button data-type="discount" data-value="15">15%</button>
+                    <button data-type="discount" data-value="20">20%</button>
+                    <button data-type="discount" data-value="25">25%</button>
+                </div>
+                <h3>Aufschlag</h3>
+                <div class="button-group">
+                    <button data-type="surcharge" data-value="0">0%</button>
+                    <button data-type="surcharge" data-value="75">75%</button>
+                </div>
             </div>
         </details>
 
@@ -217,4 +222,5 @@
     </body>
 
 </html>
+
 
