@@ -57,6 +57,7 @@ function resetForm() {
     Object.keys(values).forEach(k => values[k] = 0);
     total = 0;
     discount = 0;
+    surcharge = 0;
     updateDisplay();
 }
 
