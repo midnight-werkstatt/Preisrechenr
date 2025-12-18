@@ -66,7 +66,7 @@ dropdowns.forEach(id => {
 });
 
 // --- Rabatt-Aufschlag-Buttons ---
-document.querySelectorAll('.rabatt-section button').forEach(btn => {
+document.querySelectorAll('.rabatt-aufschlag-section button').forEach(btn => {
     btn.addEventListener('click', () => {
         const value = parseInt(btn.dataset.value) / 100;
         const type = btn.dataset.type;
@@ -82,7 +82,7 @@ document.querySelectorAll('.rabatt-section button').forEach(btn => {
         updateDisplay();
 
         // Visuelles Feedback
-        document.querySelectorAll('.rabatt-section button')
+        document.querySelectorAll('.rabatt-aufschlag-section button')
             .forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
     });
