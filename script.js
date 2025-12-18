@@ -3,7 +3,8 @@ let total = 0;
 const values = {};
 let earning_base_mult = 0.25;
 let total_base_mult = 1.25;
-let discount = 0; // Rabatt in Dezimalform
+let discount = 0;
+let surcharge = 0;
 
 // --- Hilfsfunktionen ---
 const $ = id => document.getElementById(id);
@@ -17,11 +18,12 @@ function formatToUSD(num) {
 }
 
 function updateDisplay() {
-    const total_mult = total_base_mult - discount;
+    const total_mult = (total_base_mult - discount) + surcharge;
     const earning_mult = earning_base_mult - discount;
     $('cost').innerText = `Kosten: ${formatToUSD(total)}`;
     $('earning').innerText = `Gewinn: ${formatToUSD(total * earning_mult)}`;
     $('total').innerText = `Gesamtpreis: ${formatToUSD(total * total_mult)}`;
+    $('tip').innerText = `Trinkgeld: ${formatToUSD(surcharge * (total * total_mult))}`
 }
 
 // --- Preisberechnung ---
@@ -63,11 +65,20 @@ dropdowns.forEach(id => {
     });
 });
 
-// --- Rabatt-Buttons ---
+// --- Rabatt-Aufschlag-Buttons ---
 document.querySelectorAll('.rabatt-section button').forEach(btn => {
     btn.addEventListener('click', () => {
-        const percent = parseInt(btn.id.replace('p', '')) || 0;
-        discount = percent / 100;
+        const value = parseInt(btn.dataset.value) / 100;
+        const type = btn.dataset.type;
+
+        if (type === 'discount') {
+            discount = value;
+        }
+
+        if (type === 'surcharge') {
+            surcharge = value;
+        }
+        
         updateDisplay();
 
         // Visuelles Feedback
