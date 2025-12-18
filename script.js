@@ -107,6 +107,7 @@ document.querySelector('.send').addEventListener('click', () => {
     const fraktion = document.getElementById('fraktion').value;
     const cost = document.getElementById('cost').innerText;
     const earning = document.getElementById('earning').innerText;
+    const tip = document.getElementById('tip').innerText;
     const total = document.getElementById('total').innerText;
 
     const content = `🔧 **Tuning Nachweis** 🔧\n
@@ -116,6 +117,7 @@ document.querySelector('.send').addEventListener('click', () => {
 **Fraktion:** ${fraktion}
 **Kosten:** ${"$" + cost.split('$')[1]}
 **Gewinn:** ${"$" + earning.split('$')[1]}
+**Trinkgeld:** ${"$" + tip.split('$')[1]}
 **Gesamtpreis:** ${"$" + total.split('$')[1]}`;
 
     fetch(DISCORD_WEBHOOK_URL, {
