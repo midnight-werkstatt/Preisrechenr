@@ -1,8 +1,7 @@
 // --- Globale Variablen ---
 let total = 0;
 const values = {};
-let earning_base_mult = 0.25;
-let total_base_mult = 1.25;
+let earning_base_mult = 0.20;
 let discount = 0;
 let surcharge = 0;
 
@@ -13,17 +12,26 @@ function formatToUSD(num) {
     return new Intl.NumberFormat('en-US', {
         style: 'currency',
         currency: 'USD',
-        minimumFractionDigits: 2
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0,
     }).format(num);
 }
 
 function updateDisplay() {
-    const total_mult = (total_base_mult - discount) + surcharge;
-    const earning_mult = earning_base_mult - discount;
-    $('cost').innerText = `Kosten: ${formatToUSD(total)}`;
-    $('earning').innerText = `Gewinn: ${formatToUSD(total * earning_mult)}`;
-    $('total').innerText = `Gesamtpreis: ${formatToUSD(total * total_mult)}`;
-    $('tip').innerText = `Trinkgeld: ${formatToUSD(surcharge * (total * total_mult))}`
+    const earningRate = Math.max(0, earning_base_mult - discount);
+
+    const basePrice = total;
+    const earning = total * earningRate;
+
+    const subTotal = basePrice + earning;
+    const tip = subTotal * surcharge;
+    const finalPrice = subTotal + tip;
+
+
+    $('cost').innerText = `Kosten: ${formatToUSD(basePrice)}`;
+    $('earning').innerText = `Gewinn: ${formatToUSD(earning)}`;
+    $('tip').innerText = `Trinkgeld: ${formatToUSD(tip)}`;
+    $('total').innerText = `Gesamtpreis: ${formatToUSD(finalPrice)}`;
 }
 
 // --- Preisberechnung ---
@@ -71,6 +79,12 @@ document.querySelectorAll('.rabatt-aufschlag-section button').forEach(btn => {
         const value = parseInt(btn.dataset.value) / 100;
         const type = btn.dataset.type;
 
+        const group = btn.closest('.button-group');
+
+        group.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+
+        btn.classList.add('active');
+
         if (type === 'discount') {
             discount = value;
         }
@@ -80,11 +94,6 @@ document.querySelectorAll('.rabatt-aufschlag-section button').forEach(btn => {
         }
         
         updateDisplay();
-
-        // Visuelles Feedback
-        document.querySelectorAll('.rabatt-aufschlag-section button')
-            .forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
     });
 });
 

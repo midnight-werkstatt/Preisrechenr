@@ -109,7 +109,7 @@
                     <button onclick="toggleOption(this, 13800)">Dashboard</button>
                     <button onclick="toggleOption(this, 3000)">Dashboard Farbe</button>
                     <button onclick="toggleOption(this, 12570)">Wählen</button>
-                    <button onclick="toggleOption(this, 15840)">Türlautsprecher</button> <!-- Errechnet maybe falsch -->
+                    <button onclick="toggleOption(this, 15840)">Türlautsprecher</button>
                     <button onclick="toggleOption(this, 13800)">Sitze</button>
                     <button onclick="toggleOption(this, 12300)">Lenkrad</button>
                     <button onclick="toggleOption(this, 20700)">Innere</button>
@@ -144,7 +144,7 @@
                     <button onclick="toggleOption(this, 11100)">Luftfilter</button>
                     <button onclick="toggleOption(this, 19500)">Streben</button>
                     <button onclick="toggleOption(this, 12300)">Tank</button>
-                    <button onclick="toggleOption(this, 20160)">Sprecher</button>  <!-- Errechnet maybe falsch -->
+                    <button onclick="toggleOption(this, 20160)">Sprecher</button>
                     <button onclick="toggleOption(this, 4800)">Hupe</button>
                     <button onclick="toggleOption(this, 4500)">Fenstertönung</button>
                 </div>
@@ -202,25 +202,29 @@
                     <button data-type="discount" data-value="10">10%</button>
                     <button data-type="discount" data-value="15">15%</button>
                     <button data-type="discount" data-value="20">20%</button>
-                    <button data-type="discount" data-value="25">25%</button>
+                    <!-- <button data-type="discount" data-value="25">25%</button> -->
                 </div>
                 <h3>Aufschlag</h3>
                 <div class="button-group">
                     <button data-type="surcharge" data-value="0">0%</button>
-                    <button data-type="surcharge" data-value="75">75%</button>
+                    <button data-type="surcharge" data-value="25">25%</button>
                 </div>
             </div>
         </details>
 
-        <div id="cost">Kosten: $0.00</div>
-        <div id="earning">Gewinn: $0.00</div>
-        <div id="total">Gesamtpreis: $0.00</div>
-        <div class="actions">
-            <button class="reset" onclick="resetForm()">Zurücksetzen</button>
-            <button class="send">Nachweis senden</button>
-        </div>
+        <div class="form-group direction-column">
+            <div class="overview">
+                <div id="cost">Kosten: $0.00</div>
+                <div id="earning">Gewinn: $0.00</div>
+                <div id="tip">Trinkgeld: $0.00</div> 
+                <div id="total">Gesamtpreis: $0.00</div>          
+            </div>
+            <div class="actions">
+                <button class="reset" onclick="resetForm()">Zurücksetzen</button>
+                <button class="send">Nachweis senden</button>
+            </div> 
+        </div>   
     </body>
-
 </html>
 
 
